@@ -224,6 +224,7 @@ public:
 
         oss << ", at position" << x << ", " << y;
         Logger::INFO_LOGGER->log("INFO", oss.str());
+        return true;
     }
 
     bool mouseWheel(wheel b, modifier m, int x, int y)
