@@ -40,7 +40,7 @@
  */
 
 #ifndef _ORK_GLFW_WINDOW_H_
-#define _ORK_GLLFW_WINDOW_H_
+#define _ORK_GLFW_WINDOW_H_
 
 #include <map>
 
