@@ -669,7 +669,7 @@ void MeshBuffers::multiDraw(MeshMode m, GLint *firsts, GLsizei *counts, GLsizei 
         if (bases == NULL) {
             glMultiDrawElements(getMeshMode(m), counts, getAttributeType(type), (const GLvoid**) indices, primCount);
         } else {
-            glMultiDrawElementsBaseVertex(getMeshMode(m), counts, getAttributeType(type), indices, primCount, bases);
+            glMultiDrawElementsBaseVertex(getMeshMode(m), counts, getAttributeType(type), (const GLvoid **) indices, primCount, bases);
         }
         delete[] indices;
     }
