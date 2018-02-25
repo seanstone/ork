@@ -80,6 +80,8 @@ public:
 
     virtual void start();
 
+    static void main_loop(void* instance);
+
     virtual void redisplay(double t, double dt);
 
     virtual void reshape(int x, int y);

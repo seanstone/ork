@@ -50,6 +50,10 @@
 #include <assert.h>
 #include <stdexcept>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 #include "DebugCallback.h"
 
 using namespace std;
@@ -89,13 +93,12 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    
     GLFWwindow* gwd = glfwCreateWindow(params.width(), params.height(), params.name().c_str(), NULL, NULL);
     glfwWindowHandle = (void*)gwd;
 
     if(glfwWindowHandle == NULL && Logger::ERROR_LOGGER != NULL)
     {
-        Logger::ERROR_LOGGER->log("UI", "Could not creat GLFW window!");
+        Logger::ERROR_LOGGER->log("UI", "Could not create GLFW window!");
         Logger::ERROR_LOGGER->flush();
         glfwTerminate();
         return;
@@ -106,7 +109,7 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     // May not be the same as given as "hint"?
     int width, height;
     glfwGetFramebufferSize(gwd, &width, &height);
-    
+
     // We should also call reshape function, as GLUT does,
     // since some of the examples sets a few states based on this,
     // however since we are in CTOR now, the derived function will not
@@ -163,29 +166,34 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
         }
         glfwTerminate();
         return;
- 
+
     }
-                                
-        
+
+
 
     Logger::INFO_LOGGER->logf("UI", "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-    Logger::INFO_LOGGER->flush(); 
+    Logger::INFO_LOGGER->flush();
 
+    #ifndef __EMSCRIPTEN__
     if (params.debug()) {
         assert(glDebugMessageCallbackARB != NULL);
         glDebugMessageCallbackARB(debugCallback, NULL);
     }
-    
-    
+    #endif
+
+
     // Lars F addtion 16.05.2016
     assert(glGetError()==0);
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
     assert(glGetError()==0);
 
+    #ifndef __EMSCRIPTEN__
     // do immeadiate swap
     this->waitForVSync(false);
+    #endif
 
+    printf("GlfwWindow initialized\n");
 }
 
 GlfwWindow::~GlfwWindow()
@@ -221,18 +229,33 @@ void GlfwWindow::start()
     // Do the reshape call, as a lot of the ork/proland
     // apps are setting variables based on this:
     this->reshape(this->getWidth(), this->getHeight());
-    
-    do{
-           
-        this->redisplay(t, dt);
 
-        glfwPollEvents();
-        
-        
-        
+
+    #ifdef __EMSCRIPTEN__
+    emscripten_set_main_loop_arg(&GlfwWindow::main_loop, this, 0, 1);
+
+    // do immeadiate swap
+    this->waitForVSync(false);
+
+    #else
+
+    do{
+
+        main_loop(this);
+
     } while(glfwWindowShouldClose((GLFWwindow*)glfwWindowHandle)==0);
 
     glfwTerminate();
+
+    #endif
+}
+
+void GlfwWindow::main_loop(void* instance)
+{
+    GlfwWindow* glfwWindow = (GlfwWindow*)instance;
+    glfwWindow->redisplay(glfwWindow->t, glfwWindow->dt);
+
+    glfwPollEvents();
 }
 
 void GlfwWindow::redisplay(double t, double dt)

@@ -46,6 +46,10 @@
 
 #if defined( _WIN64 ) || defined( _WIN32 )
 #include <windows.h>
+#elif defined(__EMSCRIPTEN__)
+#include <EGL/egl.h>
+#include <EGL/eglext.h>
+#define gluErrorString(err) "gluErrorString"
 #else
 #include <GL/glx.h>
 #endif
@@ -456,6 +460,8 @@ ptr<FrameBuffer> FrameBuffer::getDefault()
     void* context;
 #if defined(WIN32) || defined(WIN64) || defined(_WIN32) || defined(_WIN64)
     context = wglGetCurrentContext();
+#elif defined(__EMSCRIPTEN__)
+    context = eglGetCurrentContext();
 #else
     context = glXGetCurrentContext();
 #endif

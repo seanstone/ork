@@ -20,6 +20,7 @@ endif(NOT CMAKE_BUILD_TYPE)
 # Common deps
 find_package(PkgConfig)
 
+if(NOT EMSCRIPTEN)
 PKG_CHECK_MODULES(Glew glew REQUIRED)
 include_directories(${Glew_INCLUDE_DIRS})
 link_directories(${Glew_LIBRARY_DIRS})
@@ -30,7 +31,7 @@ link_directories(${GLFW_LIBRARY_DIRS})
 
 find_package(GLUT)
 #find_package(OpenGL)
-
+endif(NOT EMSCRIPTEN)
 
 set(LIB_INSTALL_DIR "lib" CACHE STRING "Library directory name (lib/lib32/lib64)" )
 
@@ -40,11 +41,28 @@ add_definitions("-DORK_API=" "-DTIXML_USE_STL" "-fPIC")
 option(BUILD_SHARED      "Build shared library instead of static"   OFF)
 option(BUILD_EXAMPLES    "Build examples"                           ON )
 option(BUILD_TESTS       "Build tests"                              ON )
-option(USE_SHARED_PTR	 "Use std::shared_ptr"			    ON )
-option(USE_FREEGLUT	 "Use freeglut"				    ON )
+option(USE_SHARED_PTR	 "Use std::shared_ptr"			    		ON )
+option(USE_FREEGLUT	 	 "Use freeglut"				    			ON )
+
+
+# Emscripten
+if(EMSCRIPTEN)
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s WASM=1 -s NO_EXIT_RUNTIME=1 -s ALLOW_MEMORY_GROWTH=1 -s DEMANGLE_SUPPORT=1 -s ASSERTIONS=1")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s USE_GLFW=3 -s USE_SDL=2 -s USE_WEBGL2=1 -s FULL_ES2=1 -s FULL_ES3=1")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw3 -lGL")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Os")
+	add_definitions(-DGL_GLEXT_PROTOTYPES=1)
+	add_definitions(-DGL3_PROTOTYPES=1)
+	add_definitions(-DGLFW_INCLUDE_GLU)
+	#add_definitions(-DGLFW_INCLUDE_ES3)
+	add_definitions(-DGLFW_INCLUDE_GLEXT)
+	set(USE_FREEGLUT OFF)
+endif(EMSCRIPTEN)
+
 
 if(USE_SHARED_PTR)
-	add_definitions("-DUSE_SHARED_PTR") 
+	add_definitions("-DUSE_SHARED_PTR")
 endif(USE_SHARED_PTR)
 if(USE_FREEGLUT)
 	add_definitions("-DUSEFREEGLUT")

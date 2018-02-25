@@ -41,6 +41,10 @@
 
 #include "ork/ui/Window.h"
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 using namespace std;
 
 namespace ork
@@ -50,6 +54,9 @@ Window::Parameters::Parameters() :
     _name("Untitled"), _width(640), _height(480), _major(3), _minor(3),
     _debug(false), _alpha(false), _depth(false), _stencil(false), _multiSample(false)
 {
+    #ifdef __EMSCRIPTEN__
+    EM_ASM(Module.canvas = (function() {return document.getElementById('canvas');})();, NULL);
+    #endif
 }
 
 string Window::Parameters::name() const

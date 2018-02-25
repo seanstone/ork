@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Emscripten ork Example</title>
+		<style>
+            * { margin:0; padding:none; border: 0px none }
+            html, body { width:100%; height:100%; overflow: hidden; font-family:sans-serif; }
+            canvas { display:block; width:100%; height:100%; z-index: 0; }
+        </style>
+		<script>
+			var Module = {};
+			Module.canvas = (function() {return document.getElementById('canvas');})();
+			Module.locateFile = function(x) { return "../bin/" + x };
+			Module.arguments = ['minimalglfw'];
+		</script>
+		<script src="bin/ork-examples.js"></script>
+	</head>
+	<body>
+		<canvas id="canvas"></canvas>
+	</body>
+</html>

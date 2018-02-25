@@ -163,9 +163,11 @@ GlutWindow::~GlutWindow()
 
 void GlutWindow::shutDown()
 {
-	//glutDestroyWindow(windowId);
+    #ifdef __EMSCRIPTEN__
+	glutDestroyWindow(windowId);
+    #else
 	glutLeaveMainLoop();
-
+    #endif
 }
 
 int GlutWindow::getWidth() const

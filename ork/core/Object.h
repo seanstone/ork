@@ -46,7 +46,7 @@
 #include <cassert>
 
 #ifdef USE_SHARED_PTR
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__EMSCRIPTEN__)
 #include <memory>
 #define TR1 std
 #else

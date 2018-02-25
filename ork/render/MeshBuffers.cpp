@@ -43,6 +43,10 @@
 
 #include <GL/glew.h>
 
+#ifdef __EMSCRIPTEN__
+#define gluErrorString(err) "gluErrorString"
+#endif
+
 #include "ork/math/half.h"
 #include "ork/render/Program.h"
 #include "ork/render/FrameBuffer.h"
