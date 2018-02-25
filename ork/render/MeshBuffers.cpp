@@ -44,7 +44,7 @@
 #include <GL/glew.h>
 
 #ifdef __EMSCRIPTEN__
-#define gluErrorString(err) "gluErrorString"
+#include <GL/glu.h>
 #endif
 
 #include "ork/math/half.h"

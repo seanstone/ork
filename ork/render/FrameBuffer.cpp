@@ -49,7 +49,7 @@
 #elif defined(__EMSCRIPTEN__)
 #include <EGL/egl.h>
 #include <EGL/eglext.h>
-#define gluErrorString(err) "gluErrorString"
+#include <GL/glu.h>
 #else
 #include <GL/glx.h>
 #endif

@@ -192,8 +192,6 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     // do immeadiate swap
     this->waitForVSync(false);
     #endif
-
-    printf("GlfwWindow initialized\n");
 }
 
 GlfwWindow::~GlfwWindow()
