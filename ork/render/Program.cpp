@@ -23,7 +23,7 @@
 
 #include "ork/render/Program.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <set>
 
 #include "ork/resource/ResourceTemplate.h"

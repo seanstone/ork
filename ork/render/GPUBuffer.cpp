@@ -43,7 +43,7 @@
 
 #include <cassert>
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "ork/core/Logger.h"
 #include "ork/render/FrameBuffer.h"

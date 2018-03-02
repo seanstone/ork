@@ -43,7 +43,7 @@
 
 #include "ork/core/Logger.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include <assert.h>
 

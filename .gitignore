@@ -4,4 +4,5 @@
 /bin/
 # Ignore library output directory
 /lib/
-
+# Ignore log
+log.html

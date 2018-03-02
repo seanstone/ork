@@ -3,36 +3,36 @@
  * Website : http://ork.gforge.inria.fr/
  * Copyright (c) 2008-2015 INRIA - LJK (CNRS - Grenoble University)
  * All rights reserved.
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- * this list of conditions and the following disclaimer in the documentation 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its contributors 
- * may be used to endorse or promote products derived from this software without 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 /*
- * Ork is distributed under the BSD3 Licence. 
- * For any assistance, feedback and remarks, you can check out the 
- * mailing list on the project page : 
+ * Ork is distributed under the BSD3 Licence.
+ * For any assistance, feedback and remarks, you can check out the
+ * mailing list on the project page :
  * http://ork.gforge.inria.fr/
  */
 /*
@@ -43,7 +43,7 @@
 
 #include "ork/core/Logger.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #ifdef USEFREEGLUT
 #include <GL/freeglut.h>
@@ -85,7 +85,7 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
         (params.depth() ? GLUT_DEPTH : 0) |
         (params.stencil() ? GLUT_STENCIL : 0) |
         (params.multiSample() ? GLUT_MULTISAMPLE : 0));
-	
+
     glGetError();
 
 #ifdef USEFREEGLUT
@@ -109,7 +109,7 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
     if (false) {
         glutCreateMenu(NULL);//do nothing, only used to avoid a warning
     }
-     
+
     glGetError();
 
 
@@ -131,9 +131,13 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
     glutEntryFunc(focusFunc);
 
     assert(glGetError() == 0);
-    glewExperimental = GL_TRUE;
     glGetError();
-    glewInit();
+    if(!gladLoadGL())
+    {
+        Logger::ERROR_LOGGER->logf("UI", "Could not init GLAD");
+        Logger::ERROR_LOGGER->flush();
+        return;
+    }
     glGetError();
 
 #ifdef USEFREEGLUT

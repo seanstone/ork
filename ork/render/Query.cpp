@@ -41,7 +41,7 @@
 
 #include "ork/render/Query.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 namespace ork
 {

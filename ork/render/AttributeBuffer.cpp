@@ -42,7 +42,7 @@
 #include "ork/render/AttributeBuffer.h"
 
 #include <exception>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 using namespace std;
 

@@ -41,7 +41,7 @@
 
 #include "ork/render/MeshBuffers.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #ifdef __EMSCRIPTEN__
 #include <GL/glu.h>

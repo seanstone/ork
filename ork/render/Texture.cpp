@@ -3,36 +3,36 @@
  * Website : http://ork.gforge.inria.fr/
  * Copyright (c) 2008-2015 INRIA - LJK (CNRS - Grenoble University)
  * All rights reserved.
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- * this list of conditions and the following disclaimer in the documentation 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its contributors 
- * may be used to endorse or promote products derived from this software without 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 /*
- * Ork is distributed under the BSD3 Licence. 
- * For any assistance, feedback and remarks, you can check out the 
- * mailing list on the project page : 
+ * Ork is distributed under the BSD3 Licence.
+ * For any assistance, feedback and remarks, you can check out the
+ * mailing list on the project page :
  * http://ork.gforge.inria.fr/
  */
 /*
@@ -44,7 +44,7 @@
 #include <algorithm>
 #include <exception>
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "ork/resource/ResourceManager.h"
 #include "ork/render/FrameBuffer.h"
@@ -57,6 +57,7 @@ namespace ork
 ORK_API void getParameters(const ptr<ResourceDescriptor> desc, const TiXmlElement *e, TextureInternalFormat &ff, TextureFormat &f, PixelType &t)
 {
     const char* v = e->Attribute("internalformat");
+    printf("getParameters: %s\n", v);
     if (v == NULL) {
         if (Logger::ERROR_LOGGER != NULL) {
             Resource::log(Logger::ERROR_LOGGER, desc, e, "Missing 'internalformat' attribute");
@@ -998,6 +999,7 @@ Texture::Texture(const char *type, int t) : Object(type), textureTarget(t)
 
 void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
 {
+    printf("Texture::init begin\n");
     glGenTextures(1, &textureId);
     assert(textureId > 0);
 
@@ -1011,11 +1013,18 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
         return;
     }
 
+    printf("Texture::init 1\n");
+
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_S, getTextureWrap(params.wrapS()));
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_T, getTextureWrap(params.wrapT()));
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_R, getTextureWrap(params.wrapR()));
     glTexParameteri(textureTarget, GL_TEXTURE_MIN_FILTER, getTextureFilter(params.min()));
     glTexParameteri(textureTarget, GL_TEXTURE_MAG_FILTER, getTextureFilter(params.mag()));
+
+    assert(FrameBuffer::getError() == 0);
+
+    printf("Texture::init 1.5\n");
+
     switch (params.borderType()) {
     case 0: // i
         glTexParameteriv(textureTarget, GL_TEXTURE_BORDER_COLOR, params.borderi());
@@ -1032,27 +1041,35 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
     default:
         assert(false);
     }
-    if (textureTarget != GL_TEXTURE_RECTANGLE) {
-        glTexParameterf(textureTarget, GL_TEXTURE_MIN_LOD, params.lodMin());
-        glTexParameterf(textureTarget, GL_TEXTURE_MAX_LOD, params.lodMax());
-    }
+    // if (textureTarget != GL_TEXTURE_RECTANGLE) {
+    //     glTexParameterf(textureTarget, GL_TEXTURE_MIN_LOD, params.lodMin());
+    //     glTexParameterf(textureTarget, GL_TEXTURE_MAX_LOD, params.lodMax());
+    // }
 
-    glTexParameterf(textureTarget, GL_TEXTURE_LOD_BIAS, params.lodBias());
-    if (params.compareFunc() != ALWAYS) {
-        glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-        glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_FUNC, getFunction(params.compareFunc()));
-    }
-    glTexParameterf(textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, params.maxAnisotropyEXT());
-    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_R, getTextureSwizzle(params.swizzle()[0]));
-    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_G, getTextureSwizzle(params.swizzle()[1]));
-    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_B, getTextureSwizzle(params.swizzle()[2]));
-    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_A, getTextureSwizzle(params.swizzle()[3]));
-    if (textureTarget != GL_TEXTURE_RECTANGLE) {
-        glTexParameteri(textureTarget, GL_TEXTURE_BASE_LEVEL, params.minLevel());
-        glTexParameteri(textureTarget, GL_TEXTURE_MAX_LEVEL, params.maxLevel());
-    }
+
+
+    printf("Texture::init 2\n");
+
+    // glTexParameterf(textureTarget, GL_TEXTURE_LOD_BIAS, params.lodBias());
+    // if (params.compareFunc() != ALWAYS) {
+    //     glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+    //     glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_FUNC, getFunction(params.compareFunc()));
+    // }
+    // glTexParameterf(textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, params.maxAnisotropyEXT());
+    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_R, getTextureSwizzle(params.swizzle()[0]));
+    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_G, getTextureSwizzle(params.swizzle()[1]));
+    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_B, getTextureSwizzle(params.swizzle()[2]));
+    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_A, getTextureSwizzle(params.swizzle()[3]));
+    // if (textureTarget != GL_TEXTURE_RECTANGLE) {
+    //     glTexParameteri(textureTarget, GL_TEXTURE_BASE_LEVEL, params.minLevel());
+    //     glTexParameteri(textureTarget, GL_TEXTURE_MAX_LEVEL, params.maxLevel());
+    // }
+
+    printf("Texture::init 3\n");
 
     assert(FrameBuffer::getError() == 0);
+
+    printf("Texture::init 4\n");
 }
 
 Texture::~Texture()

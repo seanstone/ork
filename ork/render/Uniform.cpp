@@ -41,7 +41,7 @@
 
 #include "ork/render/Uniform.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "ork/render/FrameBuffer.h"
 

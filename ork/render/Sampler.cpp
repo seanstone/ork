@@ -41,7 +41,7 @@
 
 #include "ork/render/Sampler.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "ork/math/vec4.h"
 #include "ork/render/Texture.h"

@@ -3,36 +3,36 @@
  * Website : http://ork.gforge.inria.fr/
  * Copyright (c) 2008-2015 INRIA - LJK (CNRS - Grenoble University)
  * All rights reserved.
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- * this list of conditions and the following disclaimer in the documentation 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its contributors 
- * may be used to endorse or promote products derived from this software without 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 /*
- * Ork is distributed under the BSD3 Licence. 
- * For any assistance, feedback and remarks, you can check out the 
- * mailing list on the project page : 
+ * Ork is distributed under the BSD3 Licence.
+ * For any assistance, feedback and remarks, you can check out the
+ * mailing list on the project page :
  * http://ork.gforge.inria.fr/
  */
 /*
@@ -41,7 +41,7 @@
 
 #include "ork/render/Buffer.h"
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 namespace ork
 {
@@ -127,28 +127,32 @@ Buffer::Parameters& Buffer::Parameters::subImage3D(GLint skipImages, GLint image
 void Buffer::Parameters::set() const
 {
     if (modified) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, _alignment);
+        #ifndef __EMSCRIPTEN__
         glPixelStorei(GL_UNPACK_SWAP_BYTES, _swapBytes);
         glPixelStorei(GL_UNPACK_LSB_FIRST, _leastSignificantBitFirst);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, _alignment);
         glPixelStorei(GL_UNPACK_SKIP_PIXELS, _subImage2D.x);
         glPixelStorei(GL_UNPACK_SKIP_ROWS, _subImage2D.y);
         glPixelStorei(GL_UNPACK_ROW_LENGTH, _subImage2D.z);
         glPixelStorei(GL_UNPACK_SKIP_IMAGES, _subImage3D.x);
         glPixelStorei(GL_UNPACK_IMAGE_HEIGHT, _subImage3D.y);
+        #endif
     }
 }
 
 void Buffer::Parameters::unset() const
 {
     if (modified) {
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+        #ifndef __EMSCRIPTEN__
         glPixelStorei(GL_UNPACK_SWAP_BYTES, false);
         glPixelStorei(GL_UNPACK_LSB_FIRST, false);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
         glPixelStorei(GL_UNPACK_SKIP_PIXELS, 0);
         glPixelStorei(GL_UNPACK_SKIP_ROWS, 0);
         glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
         glPixelStorei(GL_UNPACK_SKIP_IMAGES, 0);
         glPixelStorei(GL_UNPACK_IMAGE_HEIGHT, 0);
+        #endif
     }
 }
 

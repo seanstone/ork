@@ -44,7 +44,7 @@
 
 #include <map>
 
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 #include "ork/math/vec2.h"
 #include "ork/core/Timer.h"
