@@ -1,10 +1,10 @@
-#Ork
+# Ork
 [Ork home page](http://ork.gforge.inria.fr/)
 
-##Introduction
+## Introduction
 Ork, for OpenGL rendering kernel, provides a C++ API on top of OpenGL, which greatly simplifies the development of 3D applications.
 
-##Example 
+## Example
 Suppose that you want to draw a mesh in an offscreen framebuffer, with a program that uses a texture. Assuming that these objects are already created, with the OpenGL API you need something like this:
 ```C++
     glUseProgram(myProgram);
@@ -23,6 +23,10 @@ With the Ork API you simply need two steps (and the first one does not need to b
     myFramebuffer->draw(myProgram, *myMesh);
 ```
 
-## My contribution
-I am playing with integrating Proland in a project, and Proland runs on Ork. Since Ork does not allways build and run out of the box, the are some modifications to be done.
-
+## Building for Emscripten
+```
+    mkdir -p build
+    cd build
+    emconfigure cmake ..
+    emmake make
+```
