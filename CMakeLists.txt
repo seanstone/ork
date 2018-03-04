@@ -60,6 +60,7 @@ if(EMSCRIPTEN)
 	set(USE_FREEGLUT OFF)
 endif(EMSCRIPTEN)
 
+add_definitions(-DORK_NO_GLPROGRAMUNIFORM)
 
 if(USE_SHARED_PTR)
 	add_definitions("-DUSE_SHARED_PTR")
