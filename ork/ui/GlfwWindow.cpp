@@ -67,6 +67,12 @@ using namespace std;
 //-  General cleanup
 //-  Enable fullscreen
 
+#ifdef GLAD_DEBUG
+// logs every gl call to the console
+void pre_gl_call(const char *name, void *funcptr, int len_args, ...) {
+    printf("Calling: %s (%d arguments)\n", name, len_args);
+}
+#endif
 
 namespace ork
 {
@@ -157,7 +163,23 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
         return;
     }
 
+    #ifdef GLAD_DEBUG
+    // before every opengl call call pre_gl_call
+    glad_set_pre_callback(pre_gl_call);
+
+    // post callback checks for glGetError by default
+
+    // don't use the callback for glClear
+    // (glClear could be replaced with your own function)
+    glad_debug_glClear = glad_glClear;
+    #endif
+
     Logger::INFO_LOGGER->logf("UI", "Status: Using GLAD\n");
+    Logger::INFO_LOGGER->flush();
+
+    Logger::INFO_LOGGER->logf("UI", "OpenGL %d.%d\n", GLVersion.major, GLVersion.minor);
+    Logger::INFO_LOGGER->logf("UI", "OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),
+           glGetString(GL_SHADING_LANGUAGE_VERSION));
     Logger::INFO_LOGGER->flush();
 
     #ifndef __EMSCRIPTEN__
