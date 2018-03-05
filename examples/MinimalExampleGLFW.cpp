@@ -55,7 +55,6 @@ public:
 
     MinimalExampleGLFW() : GlfwWindow(Window::Parameters().size(512, 512))
     {
-        printf("Create mesh\n");
 	// creates a mesh whose vertices, made of vec2f, form triangle strips,
         // and which is stored on GPU and not frequently modified
         m = new Mesh<vec2f, unsigned int>(TRIANGLE_STRIP, GPU_STATIC);
@@ -71,13 +70,9 @@ public:
 	// creates a 2D texture with 4x4 pixels, using one 8bits channel
         // per pixel, with a magnification filter in nearest mode
 
-        printf("Create texture\n");
-
         unsigned char data[16] = { 0, 255, 0, 255, 255, 0, 255, 0, 0, 255, 0, 255, 255, 0, 255, 0 };
         ptr<Texture2D> tex = new Texture2D(4, 4, R8, RED, UNSIGNED_BYTE,
             Texture::Parameters().mag(NEAREST), Buffer::Parameters(), CPUBuffer(data));
-
-        printf("Create program\n");
 
         // creates a program made of a single module,
         // itself made of a single fragment shader

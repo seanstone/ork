@@ -78,7 +78,6 @@ void Texture2D::init(int w, int h, TextureInternalFormat tf, TextureFormat f, Pi
     const Parameters &params, const Buffer::Parameters &s, const Buffer &pixels)
 {
     Texture::init(tf, params);
-    printf("Texture::init ok\n");
 
     this->w = w;
     this->h = h;

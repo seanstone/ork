@@ -1036,27 +1036,27 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
     default:
         assert(false);
     }
-    // if (textureTarget != GL_TEXTURE_RECTANGLE) {
-    //     glTexParameterf(textureTarget, GL_TEXTURE_MIN_LOD, params.lodMin());
-    //     glTexParameterf(textureTarget, GL_TEXTURE_MAX_LOD, params.lodMax());
-    // }
+    if (textureTarget != GL_TEXTURE_RECTANGLE) {
+        glTexParameterf(textureTarget, GL_TEXTURE_MIN_LOD, params.lodMin());
+        glTexParameterf(textureTarget, GL_TEXTURE_MAX_LOD, params.lodMax());
+    }
 
 
 
-    // glTexParameterf(textureTarget, GL_TEXTURE_LOD_BIAS, params.lodBias());
-    // if (params.compareFunc() != ALWAYS) {
-    //     glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
-    //     glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_FUNC, getFunction(params.compareFunc()));
-    // }
-    // glTexParameterf(textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, params.maxAnisotropyEXT());
-    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_R, getTextureSwizzle(params.swizzle()[0]));
-    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_G, getTextureSwizzle(params.swizzle()[1]));
-    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_B, getTextureSwizzle(params.swizzle()[2]));
-    // glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_A, getTextureSwizzle(params.swizzle()[3]));
-    // if (textureTarget != GL_TEXTURE_RECTANGLE) {
-    //     glTexParameteri(textureTarget, GL_TEXTURE_BASE_LEVEL, params.minLevel());
-    //     glTexParameteri(textureTarget, GL_TEXTURE_MAX_LEVEL, params.maxLevel());
-    // }
+    glTexParameterf(textureTarget, GL_TEXTURE_LOD_BIAS, params.lodBias());
+    if (params.compareFunc() != ALWAYS) {
+        glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+        glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_FUNC, getFunction(params.compareFunc()));
+    }
+    glTexParameterf(textureTarget, GL_TEXTURE_MAX_ANISOTROPY_EXT, params.maxAnisotropyEXT());
+    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_R, getTextureSwizzle(params.swizzle()[0]));
+    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_G, getTextureSwizzle(params.swizzle()[1]));
+    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_B, getTextureSwizzle(params.swizzle()[2]));
+    glTexParameteri(textureTarget, GL_TEXTURE_SWIZZLE_A, getTextureSwizzle(params.swizzle()[3]));
+    if (textureTarget != GL_TEXTURE_RECTANGLE) {
+        glTexParameteri(textureTarget, GL_TEXTURE_BASE_LEVEL, params.minLevel());
+        glTexParameteri(textureTarget, GL_TEXTURE_MAX_LEVEL, params.maxLevel());
+    }
 
     assert(FrameBuffer::getError() == 0);
 }
