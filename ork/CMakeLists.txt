@@ -3,7 +3,7 @@ set(LIBNAME "ork")
 # Sources
 include_directories("${PROJECT_SOURCE_DIR}" "${PROJECT_SOURCE_DIR}/libraries" "${PROJECT_SOURCE_DIR}/libraries/*")
 include_directories("${PROJECT_SOURCE_DIR}/libraries/glad/include")
-file(GLOB SOURCE_FILES *.cpp */*.cpp)
+file(GLOB SOURCE_FILES *.cpp */*.cpp *.c */*.c)
 
 # Libraries
 set(LIBS GL GLU glut pthread stb_image tinyxml glad)

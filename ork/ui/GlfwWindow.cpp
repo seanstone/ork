@@ -51,6 +51,7 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
+#include "ork/core/gl_emscripten.h"
 #endif
 
 #include "DebugCallback.h"
@@ -154,7 +155,7 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
 
     glfwMakeContextCurrent(gwd);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    if (!gladLoadGLLoader((GLADloadproc)emscripten_GetProcAddress_full))
     {
         Logger::ERROR_LOGGER->logf("UI", "Could not init GLAD");
         Logger::ERROR_LOGGER->flush();
