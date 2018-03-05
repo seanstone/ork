@@ -1,3 +1,4 @@
+#ifdef __EMSCRIPTEN__
 // GL proc address retrieval
 
 #include <string.h>
@@ -2535,3 +2536,5 @@ void* emscripten_GetProcAddress_full(const char *name_) {
   EM_ASM(Module.printErr('bad name in getProcAddress: ' + [Pointer_stringify($0), Pointer_stringify($1)]), name_, name);
   return 0;
 }
+
+#endif
