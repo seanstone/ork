@@ -999,7 +999,6 @@ Texture::Texture(const char *type, int t) : Object(type), textureTarget(t)
 
 void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
 {
-    printf("Texture::init begin\n");
     glGenTextures(1, &textureId);
     assert(textureId > 0);
 
@@ -1013,8 +1012,6 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
         return;
     }
 
-    printf("Texture::init 1\n");
-
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_S, getTextureWrap(params.wrapS()));
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_T, getTextureWrap(params.wrapT()));
     glTexParameteri(textureTarget, GL_TEXTURE_WRAP_R, getTextureWrap(params.wrapR()));
@@ -1022,8 +1019,6 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
     glTexParameteri(textureTarget, GL_TEXTURE_MAG_FILTER, getTextureFilter(params.mag()));
 
     assert(FrameBuffer::getError() == 0);
-
-    printf("Texture::init 1.5\n");
 
     switch (params.borderType()) {
     case 0: // i
@@ -1048,8 +1043,6 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
 
 
 
-    printf("Texture::init 2\n");
-
     // glTexParameterf(textureTarget, GL_TEXTURE_LOD_BIAS, params.lodBias());
     // if (params.compareFunc() != ALWAYS) {
     //     glTexParameteri(textureTarget, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
@@ -1065,11 +1058,7 @@ void Texture::init(TextureInternalFormat tf, const Texture::Parameters &params)
     //     glTexParameteri(textureTarget, GL_TEXTURE_MAX_LEVEL, params.maxLevel());
     // }
 
-    printf("Texture::init 3\n");
-
     assert(FrameBuffer::getError() == 0);
-
-    printf("Texture::init 4\n");
 }
 
 Texture::~Texture()
