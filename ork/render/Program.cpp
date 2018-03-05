@@ -242,25 +242,29 @@ void Program::initUniforms()
 
     for (GLuint i = 0; i < (GLuint) nUniforms; ++i) {
         GLsizei length;
-        GLint type;
+        GLenum type;
         GLint size;
         GLint blockIndex;
         GLint offset;
         GLint arrayStride;
         GLint matrixStride;
         GLint isRowMajor;
-        glGetActiveUniformName(programId, i, GLsizei(maxNameLength), &length, buf);
-        glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_TYPE, &type);
-        glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_SIZE, &size);
+        glGetActiveUniform(programId, i, GLsizei(maxNameLength), &length, &size, &type, buf);
+        #ifdef __EMSCRIPTEN__
+        blockIndex = -1;
+        #else
         glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_BLOCK_INDEX, &blockIndex);
+        #endif
         if (blockIndex == -1) {
             offset = glGetUniformLocation(programId, buf);
         } else {
             glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_OFFSET, &offset);
         }
+        #ifndef __EMSCRIPTEN__
         glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_ARRAY_STRIDE, &arrayStride);
         glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_MATRIX_STRIDE, &matrixStride);
         glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_IS_ROW_MAJOR, &isRowMajor);
+        #endif
 
         string name = string(buf);
         if (size > 1 && name.find_first_of('[') != string::npos) {
