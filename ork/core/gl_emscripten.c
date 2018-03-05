@@ -2529,6 +2529,8 @@ void* emscripten_GetProcAddress_full(const char *name_) {
   else if (!strcmp(name, "glClearDepthf")) return emscripten_glClearDepthf;
   else if (!strcmp(name, "glVertexAttribDivisor")) return emscripten_glVertexAttribDivisor;
   else if (!strcmp(name, "glGetStringi")) return glGetStringi;
+  else if (!strcmp(name, "glMapBufferRange")) return glMapBufferRange;
+  else if (!strcmp(name, "glFlushMappedBufferRange")) return glFlushMappedBufferRange;
 
   EM_ASM(Module.printErr('bad name in getProcAddress: ' + [Pointer_stringify($0), Pointer_stringify($1)]), name_, name);
   return 0;
