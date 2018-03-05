@@ -79,14 +79,17 @@ public:
         // itself made of a single fragment shader
         p = new Program(new Module(330, 
 		"\
-		layout(location = 0) in vec3 vertexPosition_modelspace;\n\
+		in vec3 vertexPosition_modelspace;\n\
 		void main(){\n\
 		  gl_Position.xyz = vertexPosition_modelspace;\n\
 		  gl_Position.w = 1.0;\n\
 		}\n",		 "\
+            #ifdef GL_ES\n\
+            precision highp float;\n\
+            #endif\n\
             uniform sampler2D sampler;\n\
             uniform vec2 scale;\n\
-            layout(location = 0) out vec4 data;\n\
+            out vec4 data;\n\
             void main() {\n\
                 data = texture( sampler, gl_FragCoord.xy * scale ).rrrr;\n\
             }\n"));
