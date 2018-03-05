@@ -155,7 +155,11 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
 
     glfwMakeContextCurrent(gwd);
 
-    if (!gladLoadGLLoader((GLADloadproc)emscripten_GetProcAddress_full))
+    #ifdef __EMSCRIPTEN__
+    if (!gladLoadGLLoader((GLADloadproc) emscripten_GetProcAddress_full))
+    #else
+    if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
+    #endif
     {
         Logger::ERROR_LOGGER->logf("UI", "Could not init GLAD");
         Logger::ERROR_LOGGER->flush();
