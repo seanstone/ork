@@ -46,9 +46,9 @@
 #ifdef __EMSCRIPTEN__
 #include <GL/gl.h>
 #else
-#ifdef __EMSCRIPTEN__
-#include <GL/gl.h>
-#endif
+// #ifdef __EMSCRIPTEN__
+// #include <GLES3/gl32.h>
+// #endif
 #endif
 
 namespace ork

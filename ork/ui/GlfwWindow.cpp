@@ -44,7 +44,7 @@
 #include "ork/core/Logger.h"
 
 #ifdef __EMSCRIPTEN__
-//#include <GL/gl.h>
+//#include <GLES3/gl32.h>
 #endif
 #include <GLFW/glfw3.h>
 
@@ -266,7 +266,7 @@ void GlfwWindow::main_loop(void* instance)
     GlfwWindow* glfwWindow = (GlfwWindow*)instance;
     glfwWindow->redisplay(glfwWindow->t, glfwWindow->dt);
 
-    printf("main loop\n");
+    //printf("main loop\n");
 
     glfwPollEvents();
 }

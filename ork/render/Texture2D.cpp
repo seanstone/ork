@@ -44,10 +44,10 @@
 #include <exception>
 
 #ifdef __EMSCRIPTEN__
-#include <GL/gl.h>
+#include <GLES3/gl32.h>
 #else
 #ifdef __EMSCRIPTEN__
-#include <GL/gl.h>
+#include <GLES3/gl32.h>
 #endif
 #endif
 
