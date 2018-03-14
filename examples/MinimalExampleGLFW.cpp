@@ -99,6 +99,8 @@ public:
         // sets the "sampler" uniform of 'p' to 'tex'
         p->getUniformSampler("sampler")->set(tex);
         p->getUniform2f("scale")->set(vec2f(1.0f / getWidth(), 1.0f / getHeight()));
+
+        printf("init\n");
     }
 
     virtual void redisplay(double t, double dt)

@@ -42,7 +42,13 @@
 #include "ork/render/AttributeBuffer.h"
 
 #include <exception>
-#include <glad/glad.h>
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#endif
+#endif
 
 using namespace std;
 

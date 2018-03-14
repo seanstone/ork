@@ -23,7 +23,1529 @@
 
 #include "ork/render/Program.h"
 
-#include <glad/glad.h>
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
+#endif
 #include <set>
 
 #include "ork/resource/ResourceTemplate.h"

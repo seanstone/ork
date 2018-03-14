@@ -43,7 +43,13 @@
 
 #include "ork/core/Logger.h"
 
-#include <glad/glad.h>
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#endif
+#endif
 
 #ifdef USEFREEGLUT
 #include <GL/freeglut.h>
@@ -132,12 +138,14 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
 
     assert(glGetError() == 0);
     glGetError();
+    #ifndef __EMSCRIPTEN__
     if(!gladLoadGL())
     {
         Logger::ERROR_LOGGER->logf("UI", "Could not init GLAD");
         Logger::ERROR_LOGGER->flush();
         return;
     }
+    #endif
     glGetError();
 
 #ifdef USEFREEGLUT

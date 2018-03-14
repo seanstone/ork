@@ -43,7 +43,9 @@
 
 #include "ork/core/Logger.h"
 
-#include <glad/glad.h>
+#ifdef __EMSCRIPTEN__
+//#include <GL/gl.h>
+#endif
 #include <GLFW/glfw3.h>
 
 #include <assert.h>
@@ -51,7 +53,6 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
-#include "ork/core/gl_emscripten.h"
 #endif
 
 #include "DebugCallback.h"
@@ -155,11 +156,8 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
 
     glfwMakeContextCurrent(gwd);
 
-    #ifdef __EMSCRIPTEN__
-    if (!gladLoadGLLoader((GLADloadproc) emscripten_GetProcAddress_full))
-    #else
+    #ifndef __EMSCRIPTEN__
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
-    #endif
     {
         Logger::ERROR_LOGGER->logf("UI", "Could not init GLAD");
         Logger::ERROR_LOGGER->flush();
@@ -185,6 +183,9 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     Logger::INFO_LOGGER->logf("UI", "OpenGL %s, GLSL %s\n", glGetString(GL_VERSION),
            glGetString(GL_SHADING_LANGUAGE_VERSION));
     Logger::INFO_LOGGER->flush();
+    #endif
+
+
 
     #ifndef __EMSCRIPTEN__
     if (params.debug()) {
@@ -264,6 +265,8 @@ void GlfwWindow::main_loop(void* instance)
 {
     GlfwWindow* glfwWindow = (GlfwWindow*)instance;
     glfwWindow->redisplay(glfwWindow->t, glfwWindow->dt);
+
+    printf("main loop\n");
 
     glfwPollEvents();
 }

@@ -42,7 +42,13 @@
 #include "ork/render/FrameBuffer.h"
 
 #include <sstream>
-#include <glad/glad.h>
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#else
+#ifdef __EMSCRIPTEN__
+#include <GL/gl.h>
+#endif
+#endif
 
 #if defined( _WIN64 ) || defined( _WIN32 )
 #include <windows.h>
@@ -61,15 +67,10 @@
 
 using namespace std;
 
-#undef glEnable
-inline void glEnable(GLenum p)
-{
-    glad_glEnable(p);
-}
 inline void glEnable(GLenum p, bool b)
 {
     if (b) {
-        glad_glEnable(p);
+        glEnable(p);
     } else {
         glDisable(p);
     }
@@ -226,22 +227,22 @@ void FrameBuffer::Parameters::set(const Parameters &p)
     GLint version = 0;
     glGetIntegerv(GL_MAJOR_VERSION, &version);
 
-    // TRANSFORM -------------
-    if (transformId != p.transformId)
-    {
-        if (p.multiViewports) {
-            for (int i = 0; i < 16; ++i) {
-                glViewportIndexedf(i, p.viewports[i].x, p.viewports[i].y, p.viewports[i].z, p.viewports[i].w);
-                glDepthRangeIndexed(i, p.depthRanges[i].x, p.depthRanges[i].y);
-            }
-        } else {
-            glViewport(p.viewport.x, p.viewport.y, p.viewport.z, p.viewport.w);
-            glDepthRange(p.depthRange.x, p.depthRange.y);
-        }
-        for (int i = 0; i < 6; ++i) {
-            glEnable(GL_CLIP_DISTANCE0 + i, (p.clipDistances & (1 << i)) != 0);
-        }
-    }
+    // // TRANSFORM -------------
+    // if (transformId != p.transformId)
+    // {
+    //     if (p.multiViewports) {
+    //         for (int i = 0; i < 16; ++i) {
+    //             glViewportIndexedf(i, p.viewports[i].x, p.viewports[i].y, p.viewports[i].z, p.viewports[i].w);
+    //             glDepthRangeIndexed(i, p.depthRanges[i].x, p.depthRanges[i].y);
+    //         }
+    //     } else {
+    //         glViewport(p.viewport.x, p.viewport.y, p.viewport.z, p.viewport.w);
+    //         glDepthRange(p.depthRange.x, p.depthRange.y);
+    //     }
+    //     for (int i = 0; i < 6; ++i) {
+    //         glEnable(GL_CLIP_DISTANCE0 + i, (p.clipDistances & (1 << i)) != 0);
+    //     }
+    // }
     // CLEAR -------------
     if (clearId != p.clearId)
     {
@@ -249,156 +250,156 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glClearDepth(p.clearDepth);
         glClearStencil(p.clearStencil);
     }
-    // POINTS -------------
-    if (pointId != p.pointId)
-    {
-        glEnable(GL_PROGRAM_POINT_SIZE, p.pointSize <= 0.0f);
-        glPointSize(p.pointSize);
-        glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, p.pointFadeThresholdSize);
-        glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, p.pointLowerLeftOrigin ? GL_LOWER_LEFT : GL_UPPER_LEFT);
-    }
-    // LINES -------------
-    if (lineWidth != p.lineWidth ||
-        lineSmooth != p.lineSmooth)
-    {
-        glEnable(GL_LINE_SMOOTH, p.lineSmooth);
-        glLineWidth(p.lineWidth);
-    }
-    // POLYGONS -------------
-    if (polygonId != p.polygonId)
-    {
-        glFrontFace(p.frontFaceCW ? GL_CW : GL_CCW);
-
-        if (p.polygonFront == CULL || p.polygonBack == CULL) {
-            glEnable(GL_CULL_FACE);
-            if (p.polygonFront == CULL && p.polygonBack == CULL) {
-                glCullFace(GL_FRONT_AND_BACK);
-            } else if (p.polygonFront == CULL) {
-                glCullFace(GL_FRONT);
-            } else {
-                glCullFace(GL_BACK);
-            }
-        } else {
-            glDisable(GL_CULL_FACE);
-        }
-        switch (p.polygonFront) {
-        case CULL:
-            switch (p.polygonBack) {
-            case CULL:
-                break;
-            case POINT:
-                glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-                break;
-            case LINE:
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-                break;
-            case FILL:
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                break;
-            }
-            break;
-        case POINT:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-            break;
-        case LINE:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            break;
-        case FILL:
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            break;
-        }
-        assert(getError() == 0);
-        glEnable(GL_POLYGON_SMOOTH, p.polygonSmooth);
-        glPolygonOffset(p.polygonOffset.x, p.polygonOffset.y);
-        glEnable(GL_POLYGON_OFFSET_POINT, p.polygonOffsets.x);
-        glEnable(GL_POLYGON_OFFSET_LINE, p.polygonOffsets.y);
-        glEnable(GL_POLYGON_OFFSET_FILL, p.polygonOffsets.z);
-    }
-    // MULTISAMPLING -------------
-    if (multiSampleId != p.multiSampleId)
-    {
-        glEnable(GL_MULTISAMPLE, p.multiSample);
-        glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE, p.sampleAlphaToCoverage);
-        glEnable(GL_SAMPLE_ALPHA_TO_ONE, p.sampleAlphaToOne);
-        glEnable(GL_SAMPLE_COVERAGE, p.sampleCoverage < 1.0f);
-        glSampleCoverage(abs(p.sampleCoverage), p.sampleCoverage < 0.0f);
-        glEnable(GL_SAMPLE_MASK, p.sampleMask != (GLuint) 0xFFFFFFFF);
-        glSampleMaski(0, p.sampleMask);
-        if (version >= 4) {
-            glEnable(GL_SAMPLE_SHADING,p.sampleShading);
-            glMinSampleShading(p.samplesMin);
-        }
-    }
-    // SCISSOR TEST -------------
-    if (scissorId != p.scissorId)
-    {
-        if (p.multiScissor) {
-            for (int i = 0; i < 16; ++i) {
-                if (p.enableScissor[i]) {
-                    glEnablei(i, GL_SCISSOR_TEST);
-                } else {
-                    glDisablei(i, GL_SCISSOR_TEST);
-                }
-                glScissorIndexed(i, p.scissor[i].x, p.scissor[i].y, p.scissor[i].z, p.scissor[i].w);
-            }
-        } else {
-            glEnable(GL_SCISSOR_TEST, p.enableScissor[0]);
-            glScissor(p.scissor[0].x, p.scissor[0].y, p.scissor[0].z, p.scissor[0].w);
-        }
-    }
-    // STENCIL TEST -------------
-    if (stencilId != p.stencilId)
-    {
-        glEnable(GL_STENCIL_TEST, p.enableStencil);
-        glStencilFuncSeparate(GL_FRONT, getFunction(p.ffunc), p.fref, p.fmask);
-        glStencilFuncSeparate(GL_BACK, getFunction(p.bfunc), p.bref, p.bmask);
-        glStencilOpSeparate(GL_FRONT, getStencilOperation(p.ffail), getStencilOperation(p.fdpfail), getStencilOperation(p.fdppass));
-        glStencilOpSeparate(GL_BACK, getStencilOperation(p.bfail), getStencilOperation(p.bdpfail), getStencilOperation(p.bdppass));
-    }
-    // DEPTH TEST -------------
-    if (enableDepth != p.enableDepth ||
-        depth != p.depth)
-    {
-        glEnable(GL_DEPTH_TEST, p.enableDepth);
-        glDepthFunc(getFunction(p.depth));
-    }
-    // BLENDING --------------
-    if (blendId != p.blendId)
-    {
-        if (p.multiBlendEnable) {
-            for (int i = 0; i < 4; ++i) {
-                if (p.enableBlend[i]) {
-                    glEnablei(GL_BLEND, i);
-                } else {
-                    glDisablei(GL_BLEND, i);
-                }
-            }
-        } else {
-            glEnable(GL_BLEND, p.enableBlend[0]);
-        }
-        if (p.multiBlendEq && version >= 4) {
-            for (int i = 0; i < 4; ++i) {
-                glBlendEquationSeparatei(i, getBlendEquation(p.rgb[i]), getBlendEquation(p.alpha[i]));
-                glBlendFuncSeparatei(i, getBlendArgument(p.srgb[i]), getBlendArgument(p.drgb[i]), getBlendArgument(p.salpha[i]), getBlendArgument(p.dalpha[i]));
-            }
-        } else {
-            glBlendEquationSeparate(getBlendEquation(p.rgb[0]), getBlendEquation(p.alpha[0]));
-            glBlendFuncSeparate(getBlendArgument(p.srgb[0]), getBlendArgument(p.drgb[0]), getBlendArgument(p.salpha[0]), getBlendArgument(p.dalpha[0]));
-        }
-        glBlendColor(p.color.x, p.color.y, p.color.z, p.color.w);
-    }
-    // DITHERING --------------
-    if (enableDither != p.enableDither)
-    {
-        glEnable(GL_DITHER, p.enableDither);
-    }
-    // LOGIC OP --------------
-    if (enableLogic != p.enableLogic ||
-        logicOp != p.logicOp)
-    {
-        glEnable(GL_COLOR_LOGIC_OP, p.enableDither);
-        glLogicOp(getLogicOperation(p.logicOp));
-    }
+    // // POINTS -------------
+    // if (pointId != p.pointId)
+    // {
+    //     glEnable(GL_PROGRAM_POINT_SIZE, p.pointSize <= 0.0f);
+    //     glPointSize(p.pointSize);
+    //     glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, p.pointFadeThresholdSize);
+    //     glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, p.pointLowerLeftOrigin ? GL_LOWER_LEFT : GL_UPPER_LEFT);
+    // }
+    // // LINES -------------
+    // if (lineWidth != p.lineWidth ||
+    //     lineSmooth != p.lineSmooth)
+    // {
+    //     glEnable(GL_LINE_SMOOTH, p.lineSmooth);
+    //     glLineWidth(p.lineWidth);
+    // }
+    // // POLYGONS -------------
+    // if (polygonId != p.polygonId)
+    // {
+    //     glFrontFace(p.frontFaceCW ? GL_CW : GL_CCW);
+    //
+    //     if (p.polygonFront == CULL || p.polygonBack == CULL) {
+    //         glEnable(GL_CULL_FACE);
+    //         if (p.polygonFront == CULL && p.polygonBack == CULL) {
+    //             glCullFace(GL_FRONT_AND_BACK);
+    //         } else if (p.polygonFront == CULL) {
+    //             glCullFace(GL_FRONT);
+    //         } else {
+    //             glCullFace(GL_BACK);
+    //         }
+    //     } else {
+    //         glDisable(GL_CULL_FACE);
+    //     }
+    //     switch (p.polygonFront) {
+    //     case CULL:
+    //         switch (p.polygonBack) {
+    //         case CULL:
+    //             break;
+    //         case POINT:
+    //             glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    //             break;
+    //         case LINE:
+    //             glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //             break;
+    //         case FILL:
+    //             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //             break;
+    //         }
+    //         break;
+    //     case POINT:
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+    //         break;
+    //     case LINE:
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    //         break;
+    //     case FILL:
+    //         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    //         break;
+    //     }
+    //     assert(getError() == 0);
+    //     glEnable(GL_POLYGON_SMOOTH, p.polygonSmooth);
+    //     glPolygonOffset(p.polygonOffset.x, p.polygonOffset.y);
+    //     glEnable(GL_POLYGON_OFFSET_POINT, p.polygonOffsets.x);
+    //     glEnable(GL_POLYGON_OFFSET_LINE, p.polygonOffsets.y);
+    //     glEnable(GL_POLYGON_OFFSET_FILL, p.polygonOffsets.z);
+    // }
+    // // MULTISAMPLING -------------
+    // if (multiSampleId != p.multiSampleId)
+    // {
+    //     glEnable(GL_MULTISAMPLE, p.multiSample);
+    //     glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE, p.sampleAlphaToCoverage);
+    //     glEnable(GL_SAMPLE_ALPHA_TO_ONE, p.sampleAlphaToOne);
+    //     glEnable(GL_SAMPLE_COVERAGE, p.sampleCoverage < 1.0f);
+    //     glSampleCoverage(abs(p.sampleCoverage), p.sampleCoverage < 0.0f);
+    //     glEnable(GL_SAMPLE_MASK, p.sampleMask != (GLuint) 0xFFFFFFFF);
+    //     glSampleMaski(0, p.sampleMask);
+    //     if (version >= 4) {
+    //         glEnable(GL_SAMPLE_SHADING,p.sampleShading);
+    //         glMinSampleShading(p.samplesMin);
+    //     }
+    // }
+    // // SCISSOR TEST -------------
+    // if (scissorId != p.scissorId)
+    // {
+    //     if (p.multiScissor) {
+    //         for (int i = 0; i < 16; ++i) {
+    //             if (p.enableScissor[i]) {
+    //                 glEnablei(i, GL_SCISSOR_TEST);
+    //             } else {
+    //                 glDisablei(i, GL_SCISSOR_TEST);
+    //             }
+    //             glScissorIndexed(i, p.scissor[i].x, p.scissor[i].y, p.scissor[i].z, p.scissor[i].w);
+    //         }
+    //     } else {
+    //         glEnable(GL_SCISSOR_TEST, p.enableScissor[0]);
+    //         glScissor(p.scissor[0].x, p.scissor[0].y, p.scissor[0].z, p.scissor[0].w);
+    //     }
+    // }
+    // // STENCIL TEST -------------
+    // if (stencilId != p.stencilId)
+    // {
+    //     glEnable(GL_STENCIL_TEST, p.enableStencil);
+    //     glStencilFuncSeparate(GL_FRONT, getFunction(p.ffunc), p.fref, p.fmask);
+    //     glStencilFuncSeparate(GL_BACK, getFunction(p.bfunc), p.bref, p.bmask);
+    //     glStencilOpSeparate(GL_FRONT, getStencilOperation(p.ffail), getStencilOperation(p.fdpfail), getStencilOperation(p.fdppass));
+    //     glStencilOpSeparate(GL_BACK, getStencilOperation(p.bfail), getStencilOperation(p.bdpfail), getStencilOperation(p.bdppass));
+    // }
+    // // DEPTH TEST -------------
+    // if (enableDepth != p.enableDepth ||
+    //     depth != p.depth)
+    // {
+    //     glEnable(GL_DEPTH_TEST, p.enableDepth);
+    //     glDepthFunc(getFunction(p.depth));
+    // }
+    // // BLENDING --------------
+    // if (blendId != p.blendId)
+    // {
+    //     if (p.multiBlendEnable) {
+    //         for (int i = 0; i < 4; ++i) {
+    //             if (p.enableBlend[i]) {
+    //                 glEnablei(GL_BLEND, i);
+    //             } else {
+    //                 glDisablei(GL_BLEND, i);
+    //             }
+    //         }
+    //     } else {
+    //         glEnable(GL_BLEND, p.enableBlend[0]);
+    //     }
+    //     if (p.multiBlendEq && version >= 4) {
+    //         for (int i = 0; i < 4; ++i) {
+    //             glBlendEquationSeparatei(i, getBlendEquation(p.rgb[i]), getBlendEquation(p.alpha[i]));
+    //             glBlendFuncSeparatei(i, getBlendArgument(p.srgb[i]), getBlendArgument(p.drgb[i]), getBlendArgument(p.salpha[i]), getBlendArgument(p.dalpha[i]));
+    //         }
+    //     } else {
+    //         glBlendEquationSeparate(getBlendEquation(p.rgb[0]), getBlendEquation(p.alpha[0]));
+    //         glBlendFuncSeparate(getBlendArgument(p.srgb[0]), getBlendArgument(p.drgb[0]), getBlendArgument(p.salpha[0]), getBlendArgument(p.dalpha[0]));
+    //     }
+    //     glBlendColor(p.color.x, p.color.y, p.color.z, p.color.w);
+    // }
+    // // DITHERING --------------
+    // if (enableDither != p.enableDither)
+    // {
+    //     glEnable(GL_DITHER, p.enableDither);
+    // }
+    // // LOGIC OP --------------
+    // if (enableLogic != p.enableLogic ||
+    //     logicOp != p.logicOp)
+    // {
+    //     glEnable(GL_COLOR_LOGIC_OP, p.enableDither);
+    //     glLogicOp(getLogicOperation(p.logicOp));
+    // }
     // WRITE MASKS --------------
     if (maskId != p.maskId)
     {
