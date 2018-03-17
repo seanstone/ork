@@ -3,36 +3,36 @@
  * Website : http://ork.gforge.inria.fr/
  * Copyright (c) 2008-2015 INRIA - LJK (CNRS - Grenoble University)
  * All rights reserved.
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- * this list of conditions and the following disclaimer in the documentation 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its contributors 
- * may be used to endorse or promote products derived from this software without 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 /*
- * Ork is distributed under the BSD3 Licence. 
- * For any assistance, feedback and remarks, you can check out the 
- * mailing list on the project page : 
+ * Ork is distributed under the BSD3 Licence.
+ * For any assistance, feedback and remarks, you can check out the
+ * mailing list on the project page :
  * http://ork.gforge.inria.fr/
  */
 /*
@@ -42,10 +42,6 @@
 #include "ork/ui/GlfwWindow.h"
 
 #include "ork/core/Logger.h"
-
-//#include <GL/glew.h>
-
-//#include <GLFW/glfw3.h>
 
 #include <assert.h>
 #include <stdexcept>
@@ -124,11 +120,11 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
 
     /*
      * TODO: Add possibility to go fullscreen
-     */     
+     */
 
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(gwd, GLFW_STICKY_KEYS, GL_TRUE);
-           
+
 
 
     // Set up callbacks
@@ -148,11 +144,12 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     glfwSetWindowUserPointer(gwd, (void*)this);
 
 
-    glewExperimental = GL_TRUE;
     glfwMakeContextCurrent(gwd);
     assert(glGetError() == 0);
-    
-    GLenum err = glewInit(); 
+
+    #ifndef __EMSCRIPTEN__
+    glewExperimental = GL_TRUE;
+    GLenum err = glewInit();
     // Check and flush glGetError(). We can often get an 1280 here,
     // which is tolerated, but should be caught here.
     GLenum errAfterGlewInit = glGetError();
@@ -174,7 +171,6 @@ GlfwWindow::GlfwWindow(const Parameters &params) : Window(params), glfwWindowHan
     Logger::INFO_LOGGER->logf("UI", "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
     Logger::INFO_LOGGER->flush();
 
-    #ifndef __EMSCRIPTEN__
     if (params.debug()) {
         assert(glDebugMessageCallbackARB != NULL);
         glDebugMessageCallbackARB(debugCallback, NULL);
@@ -199,7 +195,7 @@ GlfwWindow::~GlfwWindow()
     // Lars F addition 16.05.2016
     glDeleteVertexArrays(1, &vao);
 
-}    
+}
 
 
 
@@ -290,7 +286,7 @@ void GlfwWindow::reshapeFunc(GLFWwindow* window, int w, int h)
 
 /*void GlfwWindow::idleFunc()
 {
-    
+
     GlfwWindow* gw = static_cast<GlfwWindow*>(glfwGetWindowUserPointer(window));
     // glutLayerGet(GLUT_NORMAL_DAMAGED) is not implemented in freeglut
     //window->idle(glutLayerGet(GLUT_NORMAL_DAMAGED) == 1);
@@ -315,7 +311,7 @@ void GlfwWindow::mouseClickFunc(GLFWwindow* window, int mousebutton, int action,
         default:
             break;
     }
-    
+
     EventHandler::state s;
     if(action==GLFW_PRESS)
         s = EventHandler::DOWN;
@@ -355,8 +351,8 @@ void GlfwWindow::scrollFunc(GLFWwindow* window, double scrollx,double scrolly)
         // Get the mous cordinates:
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
-          
-          
+
+
         // Call the class method:
         GlfwWindow* gw = static_cast<GlfwWindow*>(glfwGetWindowUserPointer(window));
         gw->mouseWheel(w, m, static_cast<int>(xpos),static_cast<int>(ypos));
@@ -372,7 +368,7 @@ void GlfwWindow::mouseMotionFunc(GLFWwindow* window, double  x, double y)
     // I dont like this setup, and would prefer one motion func regardless
     // of button presses, but the ork/proland apps heavily use both of these
     // two methods, so I chose to implement them for GLFW as well
-    
+
     // "Poll" the mouse buttons (actually not a poll, but queries
     // the caches state from glfw):
     int sl = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
@@ -401,13 +397,13 @@ void GlfwWindow::keyCallback(GLFWwindow* window, int key, int scancode, int acti
 {
     // Get modifiers:
     EventHandler::modifier m = getModifiers(window);
-    
+
     // Get the mous cordinates:
     double xpos, ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    
+
     GlfwWindow* gw = static_cast<GlfwWindow*>(glfwGetWindowUserPointer(window));
-    
+
     // Translate the key.
     // If 32 <= key <= 92, we pass through as a char
     if(key >= 32 && key <= 96)
@@ -424,11 +420,11 @@ void GlfwWindow::keyCallback(GLFWwindow* window, int key, int scancode, int acti
             gw->keyReleased(c, m,
                 static_cast<int>(xpos),
                 static_cast<int>(ypos));
-    } else if(key >= 256 && key <= 348) 
+    } else if(key >= 256 && key <= 348)
     {
         // GLFWs 256 and up are special keys
         EventHandler::key k = static_cast<EventHandler::key>(key);
-    
+
         if(action==GLFW_PRESS)
             gw->specialKey(k, m,
                 static_cast<int>(xpos),
@@ -447,7 +443,7 @@ void GlfwWindow::keyCallback(GLFWwindow* window, int key, int scancode, int acti
 
 void GlfwWindow::focusFunc(GLFWwindow* window, int focus)
 {
-    GlfwWindow* gw = static_cast<GlfwWindow*>(glfwGetWindowUserPointer(window));  
+    GlfwWindow* gw = static_cast<GlfwWindow*>(glfwGetWindowUserPointer(window));
     gw->damaged = (focus != 0);
 
     // From glfw docs:
@@ -471,12 +467,12 @@ EventHandler::modifier GlfwWindow::getModifiers(GLFWwindow* window)
     key2 = glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT);
     if(key1 == GLFW_PRESS || key2 == GLFW_PRESS)
         m = EventHandler::SHIFT;
-                    
+
     key1 = glfwGetKey(window, GLFW_KEY_LEFT_CONTROL);
     key2 = glfwGetKey(window, GLFW_KEY_RIGHT_CONTROL);
     if(key1 == GLFW_PRESS || key2 == GLFW_PRESS)
         m = EventHandler::CTRL;
-                                   
+
     key1 = glfwGetKey(window, GLFW_KEY_LEFT_ALT);
     key2 = glfwGetKey(window, GLFW_KEY_RIGHT_ALT);
     if(key1 == GLFW_PRESS || key2 == GLFW_PRESS)

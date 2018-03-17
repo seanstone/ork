@@ -43,7 +43,11 @@
 
 #include "ork/core/Logger.h"
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include <assert.h>
 

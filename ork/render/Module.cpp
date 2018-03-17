@@ -43,7 +43,11 @@
 
 #include <sstream>
 #include <stdexcept>
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/math/mat2.h"
 #include "ork/resource/ResourceTemplate.h"

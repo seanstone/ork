@@ -44,7 +44,11 @@
 
 #include <map>
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 #include <GLFW/glfw3.h>
 
 #include "ork/math/vec2.h"

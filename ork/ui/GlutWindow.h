@@ -44,7 +44,11 @@
 
 #include <map>
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/math/vec2.h"
 #include "ork/core/Timer.h"

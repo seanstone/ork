@@ -44,7 +44,11 @@
 #include <algorithm>
 #include <exception>
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/resource/ResourceManager.h"
 #include "ork/render/FrameBuffer.h"

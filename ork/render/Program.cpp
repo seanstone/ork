@@ -23,7 +23,11 @@
 
 #include "ork/render/Program.h"
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 #include <set>
 
 #include "ork/resource/ResourceTemplate.h"

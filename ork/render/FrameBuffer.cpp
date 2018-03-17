@@ -42,7 +42,11 @@
 #include "ork/render/FrameBuffer.h"
 
 #include <sstream>
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #if defined( _WIN64 ) || defined( _WIN32 )
 #include <windows.h>

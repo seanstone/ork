@@ -41,7 +41,11 @@
 
 #include "ork/render/Sampler.h"
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/math/vec4.h"
 #include "ork/render/Texture.h"

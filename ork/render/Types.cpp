@@ -44,7 +44,11 @@
 #include <cassert>
 #include <exception>
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 using namespace std;
 

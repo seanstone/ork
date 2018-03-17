@@ -41,7 +41,11 @@
 
 #include "ork/render/CPUBuffer.h"
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/render/FrameBuffer.h"
 

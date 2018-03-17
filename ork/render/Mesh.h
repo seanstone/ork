@@ -44,7 +44,11 @@
 
 #include <cstring> // for memcpy
 
+#ifndef __EMSCRIPTEN__
 #include <GL/glew.h>
+#else
+#include <GL/gl.h>
+#endif
 
 #include "ork/render/CPUBuffer.h"
 #include "ork/render/GPUBuffer.h"
