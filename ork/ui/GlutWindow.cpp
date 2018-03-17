@@ -52,7 +52,11 @@
 #ifdef USEFREEGLUT
 #include <GL/freeglut.h>
 #else
+#ifndef __EMSCRIPTEN__
 #include <GL/glut.h>
+#else
+#include <GL/freeglut_std.h>
+#endif
 #endif
 
 #include <assert.h>
@@ -72,7 +76,13 @@ using namespace std;
 namespace ork
 {
 
-
+#ifdef __EMSCRIPTEN__
+static int glutWindow = 0;
+static int glutGetWindow(void)
+{
+    return glutWindow;
+}
+#endif
 
 map<int, GlutWindow*> GlutWindow::INSTANCES;
 
@@ -90,7 +100,9 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
         (params.stencil() ? GLUT_STENCIL : 0) |
         (params.multiSample() ? GLUT_MULTISAMPLE : 0));
 
+    #ifndef __EMSCRIPTEN__
     glGetError();
+    #endif
 
 #ifdef USEFREEGLUT
     //Init OpenGL context
@@ -101,6 +113,9 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
 
     glutInitWindowSize(params.width(), params.height());
     windowId = glutCreateWindow(params.name().c_str());
+    #ifdef __EMSCRIPTEN__
+    glutWindow = windowId;
+    #endif
     size = vec2i(params.width(), params.height());
     damaged = false;
     timer.start();
@@ -128,11 +143,13 @@ GlutWindow::GlutWindow(const Parameters &params) : Window(params)
     glutKeyboardUpFunc(keyboardUpFunc);
     glutSpecialFunc(specialKeyFunc);
     glutSpecialUpFunc(specialKeyUpFunc);
+    #ifndef __EMSCRIPTEN__
     glutIgnoreKeyRepeat(1);
 
     // should be mouse enter/leave events,
     // but implemented in freeglut with get/loose focus
     glutEntryFunc(focusFunc);
+    #endif
 
     assert(glGetError() == 0);
 
