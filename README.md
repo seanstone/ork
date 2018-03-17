@@ -1,5 +1,6 @@
 # Ork
 [Ork home page](http://ork.gforge.inria.fr/)
+[Live demo of Emscripten port](https://seanstone.github.io/ork/)
 
 ## Introduction
 Ork, for OpenGL rendering kernel, provides a C++ API on top of OpenGL, which greatly simplifies the development of 3D applications.
