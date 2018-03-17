@@ -1,8 +1,9 @@
 # Ignore all builds
 /build/
 /embuild/
-# Ignore bin outut directory
-/bin/
+*.wast
+bin/ork-examples
+bin/ork-test
 # Ignore library output directory
 /lib/
 # Ignore log files
