@@ -81,7 +81,7 @@ public:
         // itself made of a single fragment shader
         p = new Program(new Module(330,
 		"\
-		in vec3 vertexPosition_modelspace;\n\
+		layout(location = 0) in vec3 vertexPosition_modelspace;\n\
 		void main(){\n\
 		  gl_Position.xyz = vertexPosition_modelspace;\n\
 		  gl_Position.w = 1.0;\n\
@@ -91,9 +91,9 @@ public:
             #endif\n\
             uniform sampler2D sampler;\n\
             uniform vec2 scale;\n\
-            out vec4 data;\n\
+            layout(location = 0) out vec4 data;\n\
             void main() {\n\
-                data = vec4(0.0, 1.0, 0.0, 1.0); //texture( sampler, gl_FragCoord.xy * scale ).rrrr;\n\
+                data = texture( sampler, gl_FragCoord.xy * scale ).rrrr;\n\
             }\n"));
 
         ptr<FrameBuffer> fb = FrameBuffer::getDefault();
