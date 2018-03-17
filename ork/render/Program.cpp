@@ -246,16 +246,14 @@ void Program::initUniforms()
 
     for (GLuint i = 0; i < (GLuint) nUniforms; ++i) {
         GLsizei length;
-        GLint type;
+        GLenum type;
         GLint size;
         GLint blockIndex;
         GLint offset;
         GLint arrayStride;
         GLint matrixStride;
         GLint isRowMajor;
-        glGetActiveUniformName(programId, i, GLsizei(maxNameLength), &length, buf);
-        glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_TYPE, &type);
-        glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_SIZE, &size);
+        glGetActiveUniform(programId, i, GLsizei(maxNameLength), &length, &size, &type, buf);
         glGetActiveUniformsiv(programId, 1, &i, GL_UNIFORM_BLOCK_INDEX, &blockIndex);
         if (blockIndex == -1) {
             offset = glGetUniformLocation(programId, buf);

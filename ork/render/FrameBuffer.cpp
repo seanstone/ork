@@ -3,36 +3,36 @@
  * Website : http://ork.gforge.inria.fr/
  * Copyright (c) 2008-2015 INRIA - LJK (CNRS - Grenoble University)
  * All rights reserved.
- * Redistribution and use in source and binary forms, with or without 
+ * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
- * 1. Redistributions of source code must retain the above copyright notice, 
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
  * this list of conditions and the following disclaimer.
- * 
- * 2. Redistributions in binary form must reproduce the above copyright notice, 
- * this list of conditions and the following disclaimer in the documentation 
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
  * and/or other materials provided with the distribution.
- * 
- * 3. Neither the name of the copyright holder nor the names of its contributors 
- * may be used to endorse or promote products derived from this software without 
+ *
+ * 3. Neither the name of the copyright holder nor the names of its contributors
+ * may be used to endorse or promote products derived from this software without
  * specific prior written permission.
- * 
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. 
- * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
- * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, 
- * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF 
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE 
- * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+ * IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,
+ * INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+ * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+ * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
  * OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
 /*
- * Ork is distributed under the BSD3 Licence. 
- * For any assistance, feedback and remarks, you can check out the 
- * mailing list on the project page : 
+ * Ork is distributed under the BSD3 Licence.
+ * For any assistance, feedback and remarks, you can check out the
+ * mailing list on the project page :
  * http://ork.gforge.inria.fr/
  */
 /*
@@ -236,10 +236,13 @@ void FrameBuffer::Parameters::set(const Parameters &p)
             glViewport(p.viewport.x, p.viewport.y, p.viewport.z, p.viewport.w);
             glDepthRange(p.depthRange.x, p.depthRange.y);
         }
+        #ifndef __EMSCRIPTEN__
         for (int i = 0; i < 6; ++i) {
             glEnable(GL_CLIP_DISTANCE0 + i, (p.clipDistances & (1 << i)) != 0);
         }
+        #endif
     }
+    assert(getError() == 0);
     // CLEAR -------------
     if (clearId != p.clearId)
     {
@@ -247,6 +250,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glClearDepth(p.clearDepth);
         glClearStencil(p.clearStencil);
     }
+    assert(getError() == 0);
     // POINTS -------------
     if (pointId != p.pointId)
     {
@@ -255,6 +259,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glPointParameterf(GL_POINT_FADE_THRESHOLD_SIZE, p.pointFadeThresholdSize);
         glPointParameteri(GL_POINT_SPRITE_COORD_ORIGIN, p.pointLowerLeftOrigin ? GL_LOWER_LEFT : GL_UPPER_LEFT);
     }
+    assert(getError() == 0);
     // LINES -------------
     if (lineWidth != p.lineWidth ||
         lineSmooth != p.lineSmooth)
@@ -262,6 +267,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glEnable(GL_LINE_SMOOTH, p.lineSmooth);
         glLineWidth(p.lineWidth);
     }
+    assert(getError() == 0);
     // POLYGONS -------------
     if (polygonId != p.polygonId)
     {
@@ -312,6 +318,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glEnable(GL_POLYGON_OFFSET_LINE, p.polygonOffsets.y);
         glEnable(GL_POLYGON_OFFSET_FILL, p.polygonOffsets.z);
     }
+    assert(getError() == 0);
     // MULTISAMPLING -------------
     if (multiSampleId != p.multiSampleId)
     {
@@ -327,6 +334,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
             glMinSampleShading(p.samplesMin);
         }
     }
+    assert(getError() == 0);
     // SCISSOR TEST -------------
     if (scissorId != p.scissorId)
     {
@@ -344,6 +352,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
             glScissor(p.scissor[0].x, p.scissor[0].y, p.scissor[0].z, p.scissor[0].w);
         }
     }
+    assert(getError() == 0);
     // STENCIL TEST -------------
     if (stencilId != p.stencilId)
     {
@@ -353,6 +362,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glStencilOpSeparate(GL_FRONT, getStencilOperation(p.ffail), getStencilOperation(p.fdpfail), getStencilOperation(p.fdppass));
         glStencilOpSeparate(GL_BACK, getStencilOperation(p.bfail), getStencilOperation(p.bdpfail), getStencilOperation(p.bdppass));
     }
+    assert(getError() == 0);
     // DEPTH TEST -------------
     if (enableDepth != p.enableDepth ||
         depth != p.depth)
@@ -360,6 +370,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glEnable(GL_DEPTH_TEST, p.enableDepth);
         glDepthFunc(getFunction(p.depth));
     }
+    assert(getError() == 0);
     // BLENDING --------------
     if (blendId != p.blendId)
     {
@@ -385,11 +396,13 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         }
         glBlendColor(p.color.x, p.color.y, p.color.z, p.color.w);
     }
+    assert(getError() == 0);
     // DITHERING --------------
     if (enableDither != p.enableDither)
     {
         glEnable(GL_DITHER, p.enableDither);
     }
+    assert(getError() == 0);
     // LOGIC OP --------------
     if (enableLogic != p.enableLogic ||
         logicOp != p.logicOp)
@@ -397,6 +410,7 @@ void FrameBuffer::Parameters::set(const Parameters &p)
         glEnable(GL_COLOR_LOGIC_OP, p.enableDither);
         glLogicOp(getLogicOperation(p.logicOp));
     }
+    assert(getError() == 0);
     // WRITE MASKS --------------
     if (maskId != p.maskId)
     {

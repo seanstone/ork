@@ -57,6 +57,7 @@ if(EMSCRIPTEN)
 	add_definitions(-DGLFW_INCLUDE_GLU)
 	#add_definitions(-DGLFW_INCLUDE_ES3)
 	add_definitions(-DGLFW_INCLUDE_GLEXT)
+	add_definitions(-DORK_NO_GLPROGRAMUNIFORM)
 	set(USE_FREEGLUT OFF)
 endif(EMSCRIPTEN)
 
