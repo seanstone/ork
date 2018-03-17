@@ -69,12 +69,12 @@ Module::Module(int version, const char *source) : Object("Module")
 
 Module::Module(int version, const char* vertex, const char* fragment) : Object("Module")
 {
-    init(version, NULL, vertex, NULL, NULL, NULL, NULL, NULL, NULL, NULL, fragment);
+    init(version, "#define _VERTEX_\n", vertex, NULL, NULL, NULL, NULL, NULL, NULL, "#define _FRAGMENT_\n", fragment);
 }
 
 Module::Module(int version, const char* vertex, const char* geometry, const char* fragment) : Object("Module")
 {
-    init(version, NULL, vertex, NULL, NULL, NULL, NULL, NULL, geometry, NULL, fragment);
+    init(version, "#define _VERTEX_\n", vertex, NULL, NULL, NULL, NULL, "#define _GEOMETRY_\n", geometry, "#define _FRAGMENT_\n", fragment);
 }
 
 Module::Module(int version, const char* vertex, const char *tessControl, const char* tessEvaluation,

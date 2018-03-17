@@ -1,3 +1,5 @@
+#ifdef _FRAGMENT_
+
 in vec3 wpos;
 in vec3 wnormal;
 in vec4 fcolor;
@@ -18,3 +20,5 @@ void main() {
 
     data = fcolor * (light + 0.2) + vec4(specular);
 }
+
+#endif

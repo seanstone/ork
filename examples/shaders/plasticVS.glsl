@@ -1,3 +1,5 @@
+#ifdef _VERTEX_
+
 layout(location = 1) in vec3 normal;
 layout(location = 3) in vec4 color;
 
@@ -11,3 +13,5 @@ void main() {
     projection(normal, wpos, wnormal);
     fcolor = color;
 }
+
+#endif
