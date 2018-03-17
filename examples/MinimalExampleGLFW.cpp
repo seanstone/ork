@@ -41,6 +41,7 @@
 
 #include "ork/render/FrameBuffer.h"
 #include "ork/ui/GlfwWindow.h"
+#include "ork/core/Logger.h"
 
 #include "examples/Main.h"
 
@@ -55,11 +56,12 @@ public:
 
     MinimalExampleGLFW() : GlfwWindow(Window::Parameters().size(512, 512))
     {
+        Logger::DEBUG_LOGGER = new Logger("DEBUG");
 
 	// creates a mesh whose vertices, made of vec2f, form triangle strips,
         // and which is stored on GPU and not frequently modified
         m = new Mesh<vec2f, unsigned int>(TRIANGLE_STRIP, GPU_STATIC);
-        
+
         // adds a vertex attribute of id #0, made of two float coordinates
         m->addAttributeType(0, 2, A32F, false);
         // adds four vertices to the mesh
