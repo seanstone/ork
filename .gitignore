@@ -1,5 +1,6 @@
 # Ignore all builds
 /build/
+/embuild/
 # Ignore bin outut directory
 /bin/
 # Ignore library output directory
